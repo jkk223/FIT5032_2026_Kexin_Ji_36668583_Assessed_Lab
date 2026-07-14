@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-5">
+    <!-- User information form -->
     <div class="row">
       <div
         class="col-12 col-sm-8 offset-sm-2 col-md-8 offset-md-2 col-lg-6 offset-lg-3"
@@ -16,10 +17,10 @@
             </label>
 
             <input
-              type="text"
-              class="form-control"
               id="username"
               v-model="formData.username"
+              type="text"
+              class="form-control"
               @blur="validateName(true)"
               @input="validateName(false)"
             />
@@ -39,10 +40,10 @@
             </label>
 
             <input
-              type="password"
-              class="form-control"
               id="password"
               v-model="formData.password"
+              type="password"
+              class="form-control"
               @blur="validatePassword(true)"
               @input="validatePassword(false)"
             />
@@ -63,11 +64,11 @@
 
             <div class="form-check form-check-inline">
               <input
+                id="residentYes"
+                v-model="formData.isAustralian"
                 type="radio"
                 class="form-check-input"
-                id="residentYes"
                 :value="true"
-                v-model="formData.isAustralian"
                 @change="validateResident"
               />
 
@@ -81,11 +82,11 @@
 
             <div class="form-check form-check-inline">
               <input
+                id="residentNo"
+                v-model="formData.isAustralian"
                 type="radio"
                 class="form-check-input"
-                id="residentNo"
                 :value="false"
-                v-model="formData.isAustralian"
                 @change="validateResident"
               />
 
@@ -112,14 +113,15 @@
             </label>
 
             <select
-              class="form-select"
               id="gender"
               v-model="formData.gender"
+              class="form-select"
               @change="validateGender"
             >
               <option disabled value="">
                 Please select one
               </option>
+
               <option>Male</option>
               <option>Female</option>
               <option>Other</option>
@@ -141,10 +143,10 @@
             </label>
 
             <textarea
-              class="form-control"
               id="reason"
-              rows="3"
               v-model="formData.reason"
+              class="form-control"
+              rows="3"
               @blur="validateReason(true)"
               @input="validateReason(false)"
             ></textarea>
@@ -172,54 +174,68 @@
             Clear
           </button>
         </form>
-
-        <!-- Submitted user cards -->
-        <div
-          class="row mt-5"
-          v-if="submittedCards.length"
-        >
-          <div class="d-flex flex-wrap justify-content-start">
-            <div
-              v-for="(card, index) in submittedCards"
-              :key="index"
-              class="card m-2 w-100"
-            >
-              <div class="card-header">
-                User Information
-              </div>
-
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  Username: {{ card.username }}
-                </li>
-
-                <li class="list-group-item">
-                  Password: {{ card.password }}
-                </li>
-
-                <li class="list-group-item">
-                  Australian Resident:
-                  {{ card.isAustralian === true ? 'Yes' : 'No' }}
-                </li>
-
-                <li class="list-group-item">
-                  Gender: {{ card.gender }}
-                </li>
-
-                <li class="list-group-item">
-                  Reason: {{ card.reason }}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
+    </div>
+
+    <!-- PrimeVue DataTable -->
+    <div
+      v-if="submittedCards.length"
+      class="mt-5 mb-5"
+    >
+      <h2 class="text-center mb-3">
+        Submitted User Information
+      </h2>
+
+      <DataTable
+        :value="submittedCards"
+        data-key="id"
+        striped-rows
+        show-gridlines
+        paginator
+        :rows="5"
+        :rows-per-page-options="[5, 10, 20]"
+        scrollable
+        table-style="min-width: 60rem"
+      >
+        <Column
+          field="username"
+          header="Username"
+          sortable
+        />
+
+        <Column
+          field="password"
+          header="Password"
+        />
+
+        <Column
+          header="Australian Resident"
+          sortable
+        >
+          <template #body="{ data }">
+            {{ data.isAustralian === true ? 'Yes' : 'No' }}
+          </template>
+        </Column>
+
+        <Column
+          field="gender"
+          header="Gender"
+          sortable
+        />
+
+        <Column
+          field="reason"
+          header="Reason for Joining"
+        />
+      </DataTable>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 const initialFormData = {
   username: '',
@@ -345,6 +361,7 @@ const submitForm = () => {
 
   if (!hasErrors) {
     submittedCards.value.push({
+      id: Date.now(),
       ...formData.value
     })
   }
@@ -366,20 +383,7 @@ const clearForm = () => {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  background-color: #275fda;
-  color: white;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
-}
-
-.list-group-item {
-  padding: 10px;
+.text-danger {
+  font-size: 0.9rem;
 }
 </style>
