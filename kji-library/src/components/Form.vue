@@ -12,6 +12,7 @@
               class="form-control"
               id="username"
               v-model="formData.username"
+              required
             />
           </div>
 
@@ -22,6 +23,9 @@
               class="form-control"
               id="password"
               v-model="formData.password"
+              minlength="4"
+              maxlength="20"
+              required
             />
           </div>
 
@@ -43,6 +47,7 @@
               class="form-select"
               id="gender"
               v-model="formData.gender"
+              required
             >
               <option disabled value="">Please select one</option>
               <option>Male</option>
@@ -54,12 +59,15 @@
 
           <div class="mb-3">
             <label for="reason" class="form-label">Reason for joining:</label>
-            <textarea
-              class="form-control"
-              id="reason"
-              rows="3"
-              v-model="formData.reason"
-            ></textarea>
+              <textarea
+                class="form-control"
+                id="reason"
+                rows="3"
+                v-model="formData.reason"
+                required
+                minlength="10"
+                maxlength="200"
+              ></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary me-2">Submit</button>
