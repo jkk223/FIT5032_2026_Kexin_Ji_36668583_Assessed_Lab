@@ -34,6 +34,22 @@ const handleLogout = () => {
           </router-link>
         </li>
 
+        <li class="nav-item">
+          <RouterLink to="/FireLogin" class="nav-link" active-class="active">
+            Firebase Login
+          </RouterLink>
+        </li>
+
+        <li class="nav-item">
+          <RouterLink
+            to="/FireRegister"
+            class="nav-link"
+            active-class="active"
+          >
+            FireRegister
+          </RouterLink>
+        </li>
+
         <li v-if="!isAuthenticated" class="nav-item">
           <router-link
             to="/login"
