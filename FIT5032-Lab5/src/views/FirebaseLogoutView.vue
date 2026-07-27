@@ -19,12 +19,11 @@
 <script setup>
 import { ref } from 'vue'
 import {
-  getAuth,
   signOut,
   onAuthStateChanged
 } from 'firebase/auth'
+import { auth } from '@/Firebase/init'
 
-const auth = getAuth()
 const currentUser = ref(null)
 
 onAuthStateChanged(auth, (user) => {

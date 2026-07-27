@@ -32,9 +32,9 @@
 <script setup>
 import { ref } from 'vue'
 import {
-  getAuth,
   signInWithEmailAndPassword
 } from 'firebase/auth'
+import { auth } from '@/Firebase/init'
 
 const email = ref('')
 const password = ref('')
@@ -44,8 +44,6 @@ const userRoles = {
   'kjii0006@student.monash.edu': 'user',
   'admin.lab7.kexinji@example.com': 'admin'
 }
-
-const auth = getAuth()
 
 const login = () => {
   signInWithEmailAndPassword(
