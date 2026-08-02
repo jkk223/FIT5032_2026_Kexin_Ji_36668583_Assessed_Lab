@@ -64,7 +64,7 @@ export default {
 
     iconUrl() {
       return this.weatherData
-        ? `http://api.openweathermap.org/img/w/${this.weatherData.weather[0].icon}.png`
+        ? `https://api.openweathermap.org/img/w/${this.weatherData.weather[0].icon}.png`
         : null
     }
   },
@@ -80,7 +80,7 @@ export default {
           const { latitude, longitude } = position.coords
 
           const url =
-            `http://api.openweathermap.org/data/2.5/weather` +
+            `https://api.openweathermap.org/data/2.5/weather` +
             `?lat=${latitude}&lon=${longitude}&appid=${apikey}`
 
           await this.fetchWeatherData(url)
@@ -95,7 +95,7 @@ export default {
         }
 
         const url =
-            `http://api.openweathermap.org/data/2.5/weather` +
+            `https://api.openweathermap.org/data/2.5/weather` +
             `?q=${encodeURIComponent(cityName)}&appid=${apikey}`
 
         await this.fetchWeatherData(url)
