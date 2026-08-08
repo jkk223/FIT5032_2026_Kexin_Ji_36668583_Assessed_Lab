@@ -1,0 +1,13 @@
+{
+  "name": "fit5032-count-books",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FIT5032 Lab 9.1 Alibaba Cloud Function Compute function",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

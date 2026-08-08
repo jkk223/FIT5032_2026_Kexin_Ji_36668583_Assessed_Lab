@@ -106,6 +106,15 @@ const handleLogout = () => {
             Get All Book API
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link
+            to="/get-book-count"
+            class="nav-link lab-nine-link"
+            active-class="active"
+          >
+            Lab 9 Book Counter
+          </router-link>
+        </li>
       </ul>
     </header>
   </div>
@@ -114,5 +123,15 @@ const handleLogout = () => {
 <style scoped>
 .nav-link {
   cursor: pointer;
+}
+
+.nav-pills {
+  justify-content: center;
+  gap: 0.2rem;
+}
+
+.lab-nine-link {
+  color: #0f766e;
+  font-weight: 650;
 }
 </style>

@@ -13,6 +13,7 @@ dist
 dist-ssr
 coverage
 *.local
+cloud-functions/count-books-upload.zip
 
 /cypress/videos/
 /cypress/screenshots/
