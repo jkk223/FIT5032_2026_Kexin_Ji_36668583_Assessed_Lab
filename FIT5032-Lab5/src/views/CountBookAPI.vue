@@ -28,7 +28,9 @@ const getApiData = async () => {
   error.value = null
 
   try {
-    const response = await fetch('src/assets/json/authors.json')
+    const response = await fetch(
+      `${import.meta.env.BASE_URL}data/authors.json`
+    )
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
@@ -38,24 +40,30 @@ const getApiData = async () => {
     authors.value = data
 
     calculateStats()
+
+    apiResponse.value = {
+      success: true,
+      data: {
+        authorsCount: authorsCount.value,
+        totalBooks: totalBooks.value,
+        authors: authors.value.map((author) => ({
+          name: author.name,
+          bookCount: author.famousWorks.length
+        }))
+      },
+      timestamp: new Date().toISOString()
+    }
   } catch (err) {
     error.value = `Error loading authors data: ${err.message}`
     console.error('Error loading authors data:', err)
+
+    apiResponse.value = {
+      success: false,
+      error: error.value,
+      timestamp: new Date().toISOString()
+    }
   } finally {
     loading.value = false
-  }
-
-  apiResponse.value = {
-    success: true,
-    data: {
-      authorsCount: authorsCount.value,
-      totalBooks: totalBooks.value,
-      authors: authors.value.map((author) => ({
-        name: author.name,
-        bookCount: author.famousWorks.length
-      }))
-    },
-    timestamp: new Date().toISOString()
   }
 }
 
